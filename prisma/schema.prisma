@@ -117,6 +117,15 @@ model Product {
   price          Int?
   estimatedPrice Int?
 
+  size     String?
+
+  province String?
+  district String?
+  ward     String?
+  address  String?
+
+  contact  String?
+
   image String[] @default(["https://res.cloudinary.com/vhh/image/upload/v1665845768/product-ecommerce/76007_vyvril.png"])
 
   isActive Boolean @default(true)

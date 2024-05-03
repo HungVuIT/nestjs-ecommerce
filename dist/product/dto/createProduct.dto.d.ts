@@ -10,4 +10,8 @@ export declare class createProductDto {
     estimatedPrice: number;
     isHome: number;
     image: any;
+    province: string;
+    district: string;
+    ward: string;
+    address: string;
 }

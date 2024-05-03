@@ -52,6 +52,22 @@ export class createProductDto {
 
     @IsOptional()
     image: any;
+
+    @IsOptional()
+    @IsString()
+    province: string;
+
+    @IsOptional()
+    @IsString()
+    district: string;
+
+    @IsOptional()
+    @IsString()
+    ward: string;
+
+    @IsOptional()
+    @IsString()
+    address: string;
 }
 
 // model Product {

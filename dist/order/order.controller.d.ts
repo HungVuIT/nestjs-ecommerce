@@ -198,6 +198,9 @@ export declare class OrderController {
             quantity: number;
             price: number;
             estimatedPrice: number;
+            size: string;
+            location: string;
+            contact: string;
             image: string[];
             isActive: boolean;
         }, unknown, never> & {};
