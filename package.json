@@ -59,7 +59,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "sub-vn": "^0.0.2",
-    "vn-payments": "^1.1.0"
+    "vn-payments": "^1.1.0",
+    "vnpay": "^1.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -109,5 +110,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
   }
 }

@@ -51,21 +51,21 @@ export class OrderController {
             return order;
         }
 
-        // const order = await this.orderService.createLinkPaymant(id);
+        const order = await this.orderService.createLinkPaymant(id);
 
-        return undefined;
+        return order;
     }
 
-    // @Get(':id/success')
-    // async success(@Param('id', ParseIntPipe) id: number, @Req() req: Request, @Res() res: any) {
-    //     globalVariables.other[id] = {
-    //         payerId: req.query.PayerID,
-    //         paymentId: req.query.paymentId,
-    //     };
-    //     const order = await this.orderService.completeOrder(id);
+    @Get(':id/success')
+    async success(@Param('id', ParseIntPipe) id: number, @Req() req: Request, @Res() res: any) {
+        globalVariables.other[id] = {
+            payerId: req.query.PayerID,
+            paymentId: req.query.paymentId,
+        };
+        const order = await this.orderService.completeOrder(id);
 
-    //     return res.redirect(`https://main--dh-product-bku.netlify.app/`);
-    // }
+        return res.redirect(`http://localhost:3000/`);
+    }
 
     @UseGuards(jwtGuard)
     @Get('/user')

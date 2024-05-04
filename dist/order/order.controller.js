@@ -43,7 +43,16 @@ let OrderController = class OrderController {
             const order = await this.orderService.cashOnDelivery(id);
             return order;
         }
-        return undefined;
+        const order = await this.orderService.createLinkPaymant(id);
+        return order;
+    }
+    async success(id, req, res) {
+        global_service_1.globalVariables.other[id] = {
+            payerId: req.query.PayerID,
+            paymentId: req.query.paymentId,
+        };
+        const order = await this.orderService.completeOrder(id);
+        return res.redirect(`http://localhost:3000/`);
     }
     getOrderListUser(id) {
         return this.orderService.getOrdersUser(id);
@@ -75,6 +84,15 @@ __decorate([
     __metadata("design:paramtypes", [Number, createOrder_dto_1.createOrderDto, Object]),
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "createOrder", null);
+__decorate([
+    (0, common_1.Get)(':id/success'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object, Object]),
+    __metadata("design:returntype", Promise)
+], OrderController.prototype, "success", null);
 __decorate([
     (0, common_1.UseGuards)(guard_1.jwtGuard),
     (0, common_1.Get)('/user'),

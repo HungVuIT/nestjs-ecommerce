@@ -7,29 +7,60 @@ import * as querystring from 'qs';
 import * as crypto from 'crypto';
 import { format } from 'date-fns';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { VNPay } from 'vnpay';
+import { Request } from 'express';
 
+export const loggerCtx = 'VnpayPlugin';
+export const VNPAY_PLUGIN_OPTIONS = Symbol('VNPAY_PLUGIN_OPTIONS');
+export const VNPAY_CHECKOUT = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
+export const VNPAY_REFUND = 'https://sandbox.vnpayment.vn/merchant_webapi/api/transaction';
+export const VNPAY_HOST = 'https://sandbox.vnpayment.vn';
+export const HASH_ALGORITHM = 'SHA512';
 @Injectable()
 export class PaymentService {
     // private payoutClient: any;
 
     constructor(private config: ConfigService, private prisma: PrismaService) {
-        const clientId = this.config.get('PAYPAL_CLIENT_ID');
-        const clientSecret = this.config.get('PAYPAL_CLIENT_SECRET');
-
+        // const clientId = this.config.get('PAYPAL_CLIENT_ID');
+        // const clientSecret = this.config.get('PAYPAL_CLIENT_SECRET');
         // cài môi trường cho paypal checkout
-        paypal.configure({
-            mode: 'sandbox', //sandbox or live
-            client_id: clientId,
-            client_secret: clientSecret,
-        });
-
+        // paypal.configure({
+        //     mode: 'sandbox', //sandbox or live
+        //     client_id: clientId,
+        //     client_secret: clientSecret,
+        // });
         // cài mồi trường cho paypal payout
         // let environment = new payout.core.SandboxEnvironment(
         //   clientId,
         //   clientSecret,
         // );
-
         // this.payoutClient = new payout.core.PayPalHttpClient(environment);
+    }
+
+    async createPaymentLink(userId: number): Promise<string> {
+        const vnpay = await this.getVnpayClient();
+        const host = globalVariables.paymentHost[userId];
+        const { total, itemValue, shipFee } = globalVariables.orderDetail[userId];
+        const day = new Date();
+        return vnpay.buildPaymentUrl({
+            vnp_Amount: total * 100,
+            vnp_IpAddr: '118.70.192.52',
+            vnp_OrderInfo: `Thanh toan cho don hang: ${day.getTime().toString()}`,
+            vnp_ReturnUrl: host + '/success',
+            vnp_TxnRef: day.getTime().toString(),
+        });
+    }
+
+    async getVnpayClient() {
+        const apiHost = VNPAY_HOST;
+        const hashAlgorithm = HASH_ALGORITHM;
+        return new VNPay({
+            tmnCode: 'J4596R9T',
+            secureSecret: 'AFHZNSCXCTBPENSMYBYBXKWSQDDKXJVX',
+            vnpayHost: apiHost,
+            testMode: true, // optional
+            hashAlgorithm: hashAlgorithm, // optional
+        });
     }
 
     // vndToUsd(vnd: number) {

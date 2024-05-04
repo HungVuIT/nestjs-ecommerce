@@ -31,6 +31,10 @@ export declare class OrderService {
     private config;
     private glo;
     constructor(prisma: PrismaService, payment: PaymentService, delivery: DeliveryService, config: ConfigService, glo: globalVariables);
+    createLinkPaymant(userId: number): Promise<{
+        href: string;
+    }>;
+    completeOrder(userId: number): Promise<void>;
     cashOnDelivery(userId: number): Promise<void>;
     getOrdersUser(id: number): Promise<({
         Order_detail: (import("@prisma/client/runtime").GetResult<{
@@ -224,7 +228,10 @@ export declare class OrderService {
             price: number;
             estimatedPrice: number;
             size: string;
-            location: string;
+            province: string;
+            district: string;
+            ward: string;
+            address: string;
             contact: string;
             image: string[];
             isActive: boolean;

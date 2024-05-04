@@ -6,7 +6,10 @@ export declare class OrderController {
     private orderService;
     private glo;
     constructor(orderService: OrderService, glo: globalVariables);
-    createOrder(id: number, body: createOrderDto, req: Request): Promise<void>;
+    createOrder(id: number, body: createOrderDto, req: Request): Promise<void | {
+        href: string;
+    }>;
+    success(id: number, req: Request, res: any): Promise<any>;
     getOrderListUser(id: number): Promise<({
         Order_detail: (import("@prisma/client/runtime").GetResult<{
             id: number;
@@ -199,7 +202,10 @@ export declare class OrderController {
             price: number;
             estimatedPrice: number;
             size: string;
-            location: string;
+            province: string;
+            district: string;
+            ward: string;
+            address: string;
             contact: string;
             image: string[];
             isActive: boolean;

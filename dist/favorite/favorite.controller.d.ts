@@ -30,7 +30,10 @@ export declare class FavoriteController {
             price: number;
             estimatedPrice: number;
             size: string;
-            location: string;
+            province: string;
+            district: string;
+            ward: string;
+            address: string;
             contact: string;
             image: string[];
             isActive: boolean;
