@@ -33,7 +33,7 @@ let PaymentService = class PaymentService {
         const { total, itemValue, shipFee } = global_service_1.globalVariables.orderDetail[userId];
         const day = new Date();
         return vnpay.buildPaymentUrl({
-            vnp_Amount: total * 100,
+            vnp_Amount: total,
             vnp_IpAddr: '118.70.192.52',
             vnp_OrderInfo: `Thanh toan cho don hang: ${day.getTime().toString()}`,
             vnp_ReturnUrl: host + '/success',
