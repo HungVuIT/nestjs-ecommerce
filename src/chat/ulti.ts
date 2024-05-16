@@ -13,13 +13,14 @@ function addUser({ userId, socketId }) {
 
     // Store user
     const user = { userId, socketId };
-    users.push(user);
+    if (users.find((item) => item.userId === userId)) users.find((item) => item.userId === userId).socketId = socketId;
+    else users.push(user);
     return { user };
 }
 
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.socketId === id);
-    
+
     if (index !== -1) {
         return users.splice(index, 1)[0];
     }

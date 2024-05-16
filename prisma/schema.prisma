@@ -117,14 +117,14 @@ model Product {
   price          Int?
   estimatedPrice Int?
 
-  size     String?
+  size String?
 
   province String?
   district String?
   ward     String?
   address  String?
 
-  contact  String?
+  contact String?
 
   image String[] @default(["https://res.cloudinary.com/vhh/image/upload/v1665845768/product-ecommerce/76007_vyvril.png"])
 
@@ -348,4 +348,11 @@ model News {
 
   title   String
   content String
+}
+
+model Contect {
+  id        Int @id @default(autoincrement())
+  ownerId   Int
+  productId Int
+  buyerId Int
 }

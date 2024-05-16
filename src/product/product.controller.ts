@@ -70,4 +70,9 @@ export class ProductController {
     search(@Param('value') searchTxt: string) {
         return this.productService.search(searchTxt);
     }
+
+    // @Post('add-contact')
+    // search(        @Body() body: updateProduanctDto,) {
+    //     return this.productService.search(searchTxt);
+    // }
 }
