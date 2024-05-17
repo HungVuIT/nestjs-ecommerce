@@ -37,7 +37,10 @@ export class ProductService {
 
             if (option.BID) query['where'].AND.push({ BID: Number(option.BID) });
 
-            if (option.CID) query['where'].AND.push({ CID: Number(option.CID) });
+            if (option.CID) {
+                const list = option.CID.split('');
+                query['where'].AND.push({ CID: { in: list.map(item => Number(item)) } });
+            }
 
             if (option.price) {
                 const value = option.price.split(':');

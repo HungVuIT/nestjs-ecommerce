@@ -8,7 +8,10 @@ function addUser({ userId, socketId }) {
         return new common_1.BadRequestException();
     }
     const user = { userId, socketId };
-    users.push(user);
+    if (users.find((item) => item.userId === userId))
+        users.find((item) => item.userId === userId).socketId = socketId;
+    else
+        users.push(user);
     return { user };
 }
 exports.addUser = addUser;
